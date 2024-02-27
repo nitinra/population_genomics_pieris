@@ -17,4 +17,9 @@ while IFS= read -r VCF || [[ -n "$VCF" ]]; do
     gatk GenomicsDBImport -R "$REFERENCE" -V "$VCF" --genomicsdb-workspace-path allgvcf -L intervals.list
 done < "$VCF_LIST_FILE" 
 
+# Genotype GVCFs
+gatk GenotypeGVCFs -R Pmac_annotated.fasta -V gendb://allgvcf -stand-call-conf 30.0 -all-sites -L intervals.list -O allsampleallsites.vcf.gz
+
+
 ## intervals.list is a file containing the length and identity of the chromosomes.
+
